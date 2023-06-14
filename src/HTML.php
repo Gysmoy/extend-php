@@ -240,8 +240,33 @@ class HTML
      * 
      * @return string the string '{uri}'.
      */
-    public static function toImage(string $html): string
+    public static function toImage(string $html, string $type = 'url'): string
     {
-        return '{uri}';
+        $body = [
+            'html' => $html,
+            'render_when_ready' => 'false'
+        ];
+        $res = new Fetch("https://htmlcsstoimage.com/demo_run", [
+            'method' => 'POST',
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'Accept' => 'application/json'
+            ],
+            'body' => $body
+        ]);
+
+        $data = JSON::parseable($res->text());
+        $image = 'https://sode.me/img/banner/sode.banner.png';
+
+        if ($type == 'base64' || $type == 'blob') {
+            if ($res->ok) $image = $data['url'];
+            $res_bin = new Fetch($image);
+            $data_bin = $res_bin->blob();
+            if ($type == 'blob') return $data_bin;
+            return 'data:image/png;base64,' . base64_encode($data_bin);
+        } else {
+            if (!$res->ok) return $image;
+            else return $data['url'];
+        }
     }
 }
