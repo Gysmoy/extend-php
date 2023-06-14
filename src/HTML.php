@@ -231,4 +231,17 @@ class HTML
             return "<{$this->tag} {$attributes_str}>{$this->content}</{$this->tag}>";
         }
     }
+
+    /**
+     * The function "toImage" returns a string containing the URI of an image.
+     * 
+     * @param string html The parameter "html" is a string variable that represents the HTML code of an
+     * image.
+     * 
+     * @return string the string '{uri}'.
+     */
+    public static function toImage(string $html): string
+    {
+        return '{uri}';
+    }
 }
