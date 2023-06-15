@@ -46,38 +46,115 @@ El paquete Text proporciona métodos para el manejo rápido de texto. Algunos de
 - ```keep($string, $chars)```: Mantiene solo los caracteres especificados en una cadena.
 - ```reduce($string, $chars)```:
 
-# Math Class
+# Math
 
-La clase `Math` proporciona funciones estáticas para realizar cálculos matemáticos básicos, como encontrar el valor mínimo y máximo, calcular el promedio y obtener los números más altos o más bajos de una matriz.
+La clase `Math` proporciona una serie de métodos estáticos para realizar operaciones matemáticas comunes.
 
-## Funciones disponibles
+## Métodos
 
-- `min(...$args): int`: Encuentra y devuelve el valor mínimo entre los parámetros ingresados.
-- `max(...$args): int`: Encuentra y devuelve el valor máximo entre los parámetros ingresados.
-- `avg(...$args): int`: Calcula y devuelve el promedio de los parámetros ingresados.
-- `highs(array $numbers, int $quantity): array`: Devuelve los números más altos de una matriz en orden descendente.
-- `lows(array $numbers, int $quantity): array`: Devuelve los números más bajos de una matriz en orden ascendente.
+### `min`
 
-## Uso
+La función encuentra y retorna el valor mínimo de una lista de parámetros.
 
 ```php
-// Obtener el valor mínimo
-$minValue = Math::min(4, 2, 9, 1);
-echo "El valor mínimo es: " . $minValue;
+public static function min(...$args): int
+```
 
-// Obtener el valor máximo
-$maxValue = Math::max(4, 2, 9, 1);
-echo "El valor máximo es: " . $maxValue;
+### `max`
 
-// Calcular el promedio
-$average = Math::avg(4, 2, 9, 1);
-echo "El promedio es: " . $average;
+La función encuentra y retorna el valor máximo de una lista de parámetros.
 
-// Obtener los números más altos
-$numbers = [4, 2, 9, 1, 7, 5];
-$highestNumbers = Math::highs($numbers, 3);
-echo "Los números más altos son: " . implode(", ", $highestNumbers);
+```php
+public static function max(...$args): int
+```
 
-// Obtener los números más bajos
-$lowestNumbers = Math::lows($numbers, 2);
-echo "Los números más bajos son: " . implode(", ", $lowestNumbers);
+### `avg`
+
+La función calcula el promedio de una lista de argumentos.
+
+```php
+public static function avg(...$args): int
+```
+
+### `round`
+
+Redondea un número al número especificado de decimales.
+
+```php
+public static function round(float $number, int $decimals = 0): float
+```
+
+### `highs`
+
+Devuelve los números más altos de una matriz en orden descendente.
+
+```php
+public static function highs(array $numbers, int $quantity): array
+```
+
+### `lows`
+
+Devuelve los números más bajos de una matriz en orden ascendente.
+
+```php
+public static function lows(array $numbers, int $quantity): array
+```
+
+### `sum`
+
+Calcula la suma de una lista de números.
+
+```php
+public static function sum(array $numbers): int
+```
+
+### `factorial`
+
+Calcula el factorial de un número.
+
+```php
+public static function factorial(int $number): int
+```
+
+### `pow`
+
+Calcula el exponente de un número elevado a una potencia.
+
+```php
+public static function pow(float $base, float $exponent): float
+```
+
+## Atributos Estáticos
+
+La clase `Math` también proporciona algunos atributos estáticos para números comunes:
+
+- `PI`: Valor de PI.
+- `EULER_NUMBER`: Número de Euler.
+- `GOLDEN_RATIO`: Proporción áurea.
+
+```php
+public const PI = 3.14159;
+public const EULER_NUMBER = 2.71828;
+public const GOLDEN_RATIO = 1.61803;
+```
+
+Estos atributos pueden ser utilizados en los cálculos matemáticos realizados con los métodos de la clase `Math`.
+
+## Ejemplo de Uso
+
+Aquí tienes un ejemplo de cómo usar la clase `Math`:
+
+```php
+use SoDe\Extend\Math;
+
+echo Math::min(5, 3, 8); // Output: 3
+echo Math::max(5, 3, 8); // Output: 8
+echo Math::avg(2, 4, 6); // Output: 4
+echo Math::round(3.14159, 2); // Output: 3.14
+
+$numbers = [9, 4, 7, 2, 5];
+echo implode(', ', Math::highs($numbers, 3)); // Output: 9, 7, 5
+
+echo Math::factorial(5); // Output: 120
+echo Math::pow(2, 3); // Output: 8
+```
