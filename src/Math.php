@@ -53,39 +53,30 @@ class Math
     }
 
     /**
-     * La función devuelve el mayor número de elementos de la matriz de entrada.
-     * 
-     * @param array numbers Una matriz de números de la que queremos encontrar
-     * los valores más altos.
-     * @param int quantity El número de valores más altos para devolver de la matriz.
-     * 
-     * @return array una matriz de los números más altos de la matriz de entrada.
-     * La matriz se ordena en orden ascendente usando la función sort(), luego se
-     * invierte usando array_reverse() para obtener primero los números más altos.
-     * Finalmente, la función JSON::take() se usa para devolver solo los primeros
-     * elementos de la matriz invertida.
+     * Devuelve los números más altos de una matriz en orden descendente.
+     *
+     * @param array $numbers Una matriz de números de la que queremos encontrar los valores más altos.
+     * @param int $quantity El número de valores más altos para devolver de la matriz.
+     *
+     * @return array Una matriz de los números más altos de la matriz de entrada en orden descendente.
      */
     public static function highs(array $numbers, int $quantity): array
     {
-        sort($numbers);
-        $desc = array_reverse($numbers);
-        return JSON::take($desc, $quantity);
+        rsort($numbers);
+        return array_slice($numbers, 0, $quantity);
     }
 
     /**
-     * La función "lows" toma una matriz de números y una cantidad entera, ordena
-     * la matriz y devuelve la cantidad más baja de números de la matriz.
-     * 
-     * @param array numbers Una matriz de números que se ordenarán en orden ascendente.
-     * @param int quantity El número de valores más bajos para devolver de la matriz
-     * ordenada de números.
-     * 
-     * @return array una matriz de los números más bajos de la matriz de entrada,
-     * después de ordenarla en orden ascendente.
+     * Devuelve los números más bajos de una matriz en orden ascendente.
+     *
+     * @param array $numbers Una matriz de números de la que queremos encontrar los valores más bajos.
+     * @param int $quantity El número de valores más bajos para devolver de la matriz.
+     *
+     * @return array Una matriz de los números más bajos de la matriz de entrada en orden ascendente.
      */
     public static function lows(array $numbers, int $quantity): array
     {
         sort($numbers);
-        return JSON::take($numbers, $quantity);
+        return array_slice($numbers, 0, $quantity);
     }
 }
