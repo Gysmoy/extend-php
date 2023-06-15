@@ -2,7 +2,7 @@
 
 namespace SoDe\Extend;
 
-use Exception;
+// use Exception;
 
 class Math
 {
@@ -152,5 +152,31 @@ class Math
     public static function pow(float $base, float $exponent): float
     {
         return pow($base, $exponent);
+    }
+
+    public static function abs(int|float $number): int|float
+    {
+        return abs($number);
+    }
+
+    /**
+     * Genera un número aleatorio dentro de un rango dado.
+     *
+     * @param int|float $start El límite inferior del rango.
+     * @param int|float $end El límite superior del rango.
+     * @param bool $isInteger Indica si el número aleatorio debe ser entero (predeterminado: true).
+     *
+     * @return int|float El número aleatorio generado.
+     * @throws Exception Si los límites del rango no son válidos (si $start es mayor que $end).
+     */
+    public static function random($start, $end, $isInteger = true)
+    {
+        if ($start > $end) {
+            throw new Exception('Los límites del rango no son válidos. El límite inferior debe ser menor o igual al límite superior.');
+        }
+        $random = mt_rand() / mt_getrandmax();
+        $result = $start + ($random * ($end - $start));
+        if ($isInteger) return round($result);
+        return $result;
     }
 }
