@@ -132,6 +132,14 @@ Calcula el exponente de un número elevado a una potencia.
 public static function pow(float $base, float $exponent): float
 ```
 
+### `pow`
+
+Genera un número aleatorio (entero o decimal) dentro de un rango.
+
+```php
+public static function round(int|float $base, int|float $exponent, ?bool $isInteger = true): int|float
+```
+
 ## Atributos Estáticos
 
 La clase `Math` también proporciona algunos atributos estáticos para números comunes:
