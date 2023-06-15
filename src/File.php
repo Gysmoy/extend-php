@@ -1182,7 +1182,21 @@ class File
         "zmm" => "application/vnd.handheld-entertainment+xml"
     ];
 
-    static public function getExtention(string $mimetype): string
+    /**
+     * Esta función de PHP devuelve la extensión del archivo según el
+     * tipo MIME proporcionado.
+     * 
+     * @param string mimetype El tipo MIME de un archivo, que es una cadena
+     * que identifica el tipo de datos contenidos en el archivo. Por ejemplo,
+     * "imagen/jpeg" para un archivo de imagen JPEG o "texto/sin formato"
+     * para un archivo de texto sin formato.
+     * 
+     * @return string una cadena que representa la extensión de archivo
+     * correspondiente al tipo MIME dado. Si el tipo MIME no se encuentra en
+     * los pares predefinidos, la función devuelve la extensión predeterminada
+     * "sode".
+     */
+    public static function getExtention(string $mimetype): string
     {
         $extention = 'sode';
         $keys = array_keys(File::$pairs);
@@ -1196,7 +1210,20 @@ class File
         return $extention;
     }
 
-    static public function getMimeType(string $extention): string
+    /**
+     * Esta función de PHP devuelve el tipo MIME de un archivo en función
+     * de su extensión.
+     * 
+     * @param string extention La extensión de un archivo, por ejemplo,
+     * "pdf", "jpg", "txt", etc.
+     * 
+     * @return string una cadena que representa el tipo MIME de un archivo
+     * en función de su extensión. El valor predeterminado de la cadena es
+     * "sode", pero si la extensión se encuentra en la lista de extensiones
+     * conocidas y sus tipos MIME correspondientes (almacenados en la
+     * propiedad estática), la función devolverá el tipo MIME correspondiente.
+     */
+    public static function getMimeType(string $extention): string
     {
         $mimetype = 'sode';
         $keys = array_keys(File::$pairs);
@@ -1208,5 +1235,19 @@ class File
         }
 
         return $mimetype;
+    }
+
+    /**
+     * La función guarda los datos en un archivo en una ruta especificada.
+     * 
+     * @param string path Una cadena que representa la ruta del archivo
+     * donde se guardarán los datos.
+     * @param mixed data Los datos que deben guardarse en un archivo.
+     * Puede ser de cualquier tipo de dato, ya que el parámetro se define
+     * como mixto.
+     */
+    public static function save(string $path, mixed $data): void
+    {
+        file_put_contents($path, $data);
     }
 }
