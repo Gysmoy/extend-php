@@ -16,6 +16,7 @@ class Fetch
         $options['headers'] = $options['headers'] ?? [];
         $options['method'] = $options['method'] ?? 'GET';
         $options['body'] = $options['body'] ?? [];
+        $options['timeout'] = $options['timeout'] ?? 0;
 
         if (isset($options['headers']['Content-Type']) && $options['headers']['Content-Type'] == 'application/json') {
             $options['body'] = json_encode($options['body']);
@@ -33,7 +34,7 @@ class Fetch
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
+            CURLOPT_TIMEOUT => $options['timeout'],
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => $options['method'],

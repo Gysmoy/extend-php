@@ -35,10 +35,10 @@ class Crypto
 
 
     /**
-     * Genera un token de acceso seguro.
+     * Generates a secure access token.
      *
-     * @param int $length La longitud del token (predeterminado: 32).
-     * @return string Un token de acceso seguro.
+     * @param int $length The length of the token (default: 32).
+     * @return string A secure access token.
      */
     public static function generateAccessToken(int $length = 32): string
     {
@@ -47,10 +47,10 @@ class Crypto
     }
 
     /**
-     * Genera una clave de cifrado segura.
+     * Generates a secure encryption key.
      *
-     * @param int $length La longitud de la clave (predeterminado: 16).
-     * @return string Una clave de cifrado segura.
+     * @param int $length The length of the key (default: 16).
+     * @return string A secure encryption key.
      */
     public static function generateEncryptionKey(int $length = 16): string
     {
@@ -59,10 +59,10 @@ class Crypto
     }
 
     /**
-     * Genera un token CSRF (Cross-Site Request Forgery) seguro.
+     * Generates a secure CSRF (Cross-Site Request Forgery) token.
      *
-     * @param int $length La longitud del token (predeterminado: 16).
-     * @return string Un token CSRF seguro.
+     * @param int $length The length of the token (default: 16).
+     * @return string A secure CSRF token.
      */
     public static function generateCSRFToken(int $length = 16): string
     {
