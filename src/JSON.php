@@ -82,36 +82,24 @@ class JSON
      * se agrega al comienzo de cada clave plana. Se utiliza para
      * diferenciar entre claves que pueden tener el mismo nombre en
      * matrices u objetos anidados.
-     * @param boolean $flattenLastArray Un parámetro booleano que
-     * determina si aplanar la última matriz o no. Si se establece en
-     * verdadero, y el último elemento de una matriz también es una
-     * matriz, se aplanará. Si se establece en false, la última matriz
-     * no se aplanará y se incluirá tal cual en la salida aplanada.
      * 
      * @return array una versión simplificada del objeto/matriz de
      * entrada con claves que representan la ruta a cada valor en el
      * objeto/matriz original. La versión aplanada se devuelve como
      * una matriz asociativa.
      */
-    public static function flatten($obj, $notation = '.', $prefix = '', $flattenLastArray = true)
+    public static function flatten(array $array, string $notation = '.', string $prefix = ''): array
     {
-        return array_reduce(array_keys($obj), function ($acc, $k) use ($notation, $prefix, $flattenLastArray, $obj) {
-            $pre = strlen($prefix) ? $prefix . $notation : '';
-            if (is_array($obj[$k])) {
-                if ($flattenLastArray && !is_array($obj[$k][0])) {
-                    foreach ($obj[$k] as $i => $item) {
-                        $acc[$pre . $k . '[' . $i . ']'] = $item;
-                    }
-                } else {
-                    $acc[$pre . $k] = $obj[$k];
-                }
-            } else if (is_object($obj[$k])) {
-                $acc += JSON::flatten((array) $obj[$k], $notation, $pre . $k, $flattenLastArray);
+        $flattened = array();
+        foreach ($array as $key => $value) {
+            $new_key = is_int($key) ? '[' . $key . ']' : ($prefix == '' ? $key : $notation . $key);
+            if (is_array($value)) {
+                $flattened = $flattened + JSON::flatten($value, $notation, $prefix . $new_key);
             } else {
-                $acc[$pre . $k] = $obj[$k];
+                $flattened[$prefix . $new_key] = $value;
             }
-            return $acc;
-        }, []);
+        }
+        return $flattened;
     }
 
     /**
