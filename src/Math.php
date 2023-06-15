@@ -2,7 +2,7 @@
 
 namespace SoDe\Extend;
 
-// use Exception;
+use Exception;
 
 class Math
 {
@@ -80,6 +80,34 @@ class Math
     }
 
     /**
+     * Redondea hacia abajo un número al entero más cercano o al número especificado de decimales.
+     *
+     * @param float $number El número que se va a redondear hacia abajo.
+     * @param int $decimals El número de decimales a los que se debe redondear (predeterminado: 0).
+     *
+     * @return float El número redondeado hacia abajo.
+     */
+    public static function floor(float $number, int $decimals = 0): float
+    {
+        $multiplier = 10 ** $decimals;
+        return floor($number * $multiplier) / $multiplier;
+    }
+
+    /**
+     * Redondea hacia arriba un número al entero más cercano o al número especificado de decimales.
+     *
+     * @param float $number El número que se va a redondear hacia arriba.
+     * @param int $decimals El número de decimales a los que se debe redondear (predeterminado: 0).
+     *
+     * @return float El número redondeado hacia arriba.
+     */
+    public static function ceil(float $number, int $decimals = 0): float
+    {
+        $multiplier = 10 ** $decimals;
+        return ceil($number * $multiplier) / $multiplier;
+    }
+
+    /**
      * Devuelve los números más altos de una matriz en orden descendente.
      *
      * @param array $numbers Una matriz de números de la que queremos encontrar los valores más altos.
@@ -154,6 +182,13 @@ class Math
         return pow($base, $exponent);
     }
 
+    /**
+     * Calcula el valor absoluto de un número.
+     *
+     * @param int|float $number El número para calcular el valor absoluto.
+     *
+     * @return int|float El valor absoluto del número.
+     */
     public static function abs(int|float $number): int|float
     {
         return abs($number);

@@ -56,133 +56,105 @@ El paquete Text proporciona métodos para el manejo rápido de texto. Algunos de
 
 # Math
 
-La clase `Math` proporciona una serie de métodos estáticos para realizar operaciones matemáticas comunes.
+La clase `Math` proporciona una serie de funciones matemáticas útiles.
+
+## Constantes
+
+- `Math::PI`: Valor de PI.
+- `Math::E`: Número de Euler.
+- `Math::PHI`: Proporción áurea.
+- `Math::LN2`: Logaritmo natural de 2.
+- `Math::LN10`: Logaritmo natural de 10.
+- `Math::LOG2E`: Logaritmo natural de 2e.
+- `Math::LOG10E`: Logaritmo natural de 10e.
+- `Math::SQRT1_2`: Raíz cuadrada de 1/2.
+- `Math::SQRT2`: Raíz cuadrada de 2.
 
 ## Métodos
 
-### `min`
+### `min(...$args): int`
 
-La función encuentra y retorna el valor mínimo de una lista de parámetros.
+Encuentra y devuelve el valor mínimo de una lista de parámetros.
 
-```php
-public static function min(...$args): int
-```
+### `max(...$args): int`
 
-### `max`
+Encuentra y devuelve el valor máximo de una lista de parámetros.
 
-La función encuentra y retorna el valor máximo de una lista de parámetros.
+### `avg(...$args): int`
 
-```php
-public static function max(...$args): int
-```
+Calcula el promedio de una lista de argumentos.
 
-### `avg`
-
-La función calcula el promedio de una lista de argumentos.
-
-```php
-public static function avg(...$args): int
-```
-
-### `round`
+### `round(float $number, int $decimals = 0): float`
 
 Redondea un número al número especificado de decimales.
 
-```php
-public static function round(float $number, int $decimals = 0): float
-```
+### `floor(float $number, int $decimals = 0): float`
 
-### `highs`
+Redondea hacia abajo un número al entero más cercano o al número especificado de decimales.
+
+### `ceil(float $number, int $decimals = 0): float`
+
+Redondea hacia arriba un número al entero más cercano o al número especificado de decimales.
+
+### `highs(array $numbers, int $quantity): array`
 
 Devuelve los números más altos de una matriz en orden descendente.
 
-```php
-public static function highs(array $numbers, int $quantity): array
-```
-
-### `lows`
+### `lows(array $numbers, int $quantity): array`
 
 Devuelve los números más bajos de una matriz en orden ascendente.
 
-```php
-public static function lows(array $numbers, int $quantity): array
-```
-
-### `sum`
+### `sum(array $numbers): int`
 
 Calcula la suma de una lista de números.
 
-```php
-public static function sum(array $numbers): int
-```
-
-### `factorial`
+### `factorial(int $number): int`
 
 Calcula el factorial de un número.
 
-```php
-public static function factorial(int $number): int
-```
-
-### `pow`
+### `pow(float $base, float $exponent): float`
 
 Calcula el exponente de un número elevado a una potencia.
 
-```php
-public static function pow(float $base, float $exponent): float
-```
+### `abs(int|float $number): int|float`
 
-### `pow`
+Calcula el valor absoluto de un número.
 
-Genera un número aleatorio (entero o decimal) dentro de un rango.
+### `random(int|float $start, int|float $end, bool $isInteger = true): int|float`
 
-```php
-public static function round(int|float $base, int|float $exponent, ?bool $isInteger = true): int|float
-```
+Genera un número aleatorio dentro de un rango dado.
 
-## Atributos Estáticos
+---
 
-La clase `Math` también proporciona algunos atributos estáticos para números comunes:
-
-- `PI`: Valor de PI.
-- `E`: Número de Euler.
-- `PHI`: Proporción áurea.
-- `LN2`: Logaritmo natural de 2
-- `LN10`: Logaritmo narutal de 10
-- `LOG2E`: Logaritmo natural de 2e
-- `LOG10E`: Logaritmo narutal de 10e
-- `SQRT1_2`: Raiz de 1/2
-- `SQRT2`: Raiz de 2
-
-```php
-public const PI      = 3.141592653589793;
-public const E       = 2.718281828459045;
-public const PHI     = 1.618033988749894;
-public const LN2     = 0.6931471805599453;
-public const LN10    = 2.302585092994046;
-public const LOG2E   = 1.4426950408889634;
-public const LOG10E  = 0.4342944819032518;
-public const SQRT1_2 = 0.7071067811865476;
-public const SQRT2   = 1.4142135623730951;
-```
-
-Estos atributos pueden ser utilizados en los cálculos matemáticos realizados con los métodos de la clase `Math`.
-
-## Ejemplo de Uso
-
-Aquí tienes un ejemplo de cómo usar la clase `Math`:
+**Nota:** Asegúrate de importar la clase `Math` en tu archivo PHP antes de usar estas funciones.
 
 ```php
 use SoDe\Extend\Math;
 
-echo Math::min(5, 3, 8); // Output: 3
-echo Math::max(5, 3, 8); // Output: 8
-echo Math::avg(2, 4, 6); // Output: 4
-echo Math::round(3.14159, 2); // Output: 3.14
+// Ejemplo de uso
+$minValue = Math::min(3, 5, 1, 7); // Output: 1
 
-$numbers = [9, 4, 7, 2, 5];
-echo implode(', ', Math::highs($numbers, 3)); // Output: 9, 7, 5
+$maxValue = Math::max(3, 5, 1, 7); // Output: 7
 
-echo Math::factorial(5); // Output: 120
-echo Math::pow(2, 3); // Output: 8
+$average = Math::avg(2, 4, 6, 8); // Output: 5
+
+$rounded = Math::round(3.14159, 2); // Output: 3.14
+
+$floorValue = Math::floor(3.99); // Output: 3
+
+$ceilValue = Math::ceil(3.01); // Output: 4
+
+$highestNumbers = Math::highs([5, 9, 2, 7, 4], 3); // Output: [9, 7, 5]
+
+$lowestNumbers = Math::lows([5, 9, 2, 7, 4], 3); // Output: [2, 4, 5]
+
+$sum = Math::sum([1, 2, 3, 4, 5]); // Output: 15
+
+$factorial = Math::factorial(5); // Output: 120
+
+$exponent = Math::pow(2, 3); // Output: 8
+
+$absoluteValue = Math::abs(-5); // Output: 5
+
+$randomNumber = Math::random(0, 10); // Output: Un número aleatorio entre 0 y 10
 ```
