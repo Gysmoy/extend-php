@@ -7,9 +7,15 @@ use Exception;
 class Math
 {
 
-    public const PI  = 3.141592653589793; // Valor de PI
-    public const E   = 2.718281828459045; // Número de Euler
-    public const PHI = 1.618033988749894; // Proporción áurea
+    public const PI      = 3.141592653589793;  // Valor de PI
+    public const E       = 2.718281828459045;  // Número de Euler
+    public const PHI     = 1.618033988749894;  // Proporción áurea
+    public const LN2     = 0.6931471805599453; // Logaritmo natural de 2
+    public const LN10    = 2.302585092994046;  // Logaritmo narutal de 10
+    public const LOG2E   = 1.4426950408889634; // Logaritmo natural de 2e
+    public const LOG10E  = 0.4342944819032518; // Logaritmo narutal de 10e
+    public const SQRT1_2 = 0.7071067811865476; // Raiz de 1/2
+    public const SQRT2   = 1.4142135623730951; // Raiz de 2
 
     /**
      * La función encuentra y retorna el valor mínimo de una lista

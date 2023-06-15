@@ -139,11 +139,23 @@ La clase `Math` también proporciona algunos atributos estáticos para números 
 - `PI`: Valor de PI.
 - `E`: Número de Euler.
 - `PHI`: Proporción áurea.
+- `LN2`: Logaritmo natural de 2
+- `LN10`: Logaritmo narutal de 10
+- `LOG2E`: Logaritmo natural de 2e
+- `LOG10E`: Logaritmo narutal de 10e
+- `SQRT1_2`: Raiz de 1/2
+- `SQRT2`: Raiz de 2
 
 ```php
-public const PI = 3.141592653589793;
-public const E = 2.718281828459045;
-public const PHI = 1.618033988749894;
+public const PI      = 3.141592653589793;
+public const E       = 2.718281828459045;
+public const PHI     = 1.618033988749894;
+public const LN2     = 0.6931471805599453;
+public const LN10    = 2.302585092994046;
+public const LOG2E   = 1.4426950408889634;
+public const LOG10E  = 0.4342944819032518;
+public const SQRT1_2 = 0.7071067811865476;
+public const SQRT2   = 1.4142135623730951;
 ```
 
 Estos atributos pueden ser utilizados en los cálculos matemáticos realizados con los métodos de la clase `Math`.
