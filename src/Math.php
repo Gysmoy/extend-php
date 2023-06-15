@@ -7,9 +7,9 @@ use Exception;
 class Math
 {
 
-    public const PI = 3.14159; // Valor de PI
-    public const EULER_NUMBER = 2.71828; // Número de Euler
-    public const GOLDEN_RATIO = 1.61803; // Proporción áurea
+    public const PI  = 3.141592653589793; // Valor de PI
+    public const E   = 2.718281828459045; // Número de Euler
+    public const PHI = 1.618033988749894; // Proporción áurea
 
     /**
      * La función encuentra y retorna el valor mínimo de una lista
