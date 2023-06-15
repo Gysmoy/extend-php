@@ -45,3 +45,39 @@ El paquete Text proporciona métodos para el manejo rápido de texto. Algunos de
 - ```split($text, $sep)```: Divide una cadena en un array utilizando un separador.
 - ```keep($string, $chars)```: Mantiene solo los caracteres especificados en una cadena.
 - ```reduce($string, $chars)```:
+
+# Math Class
+
+La clase `Math` proporciona funciones estáticas para realizar cálculos matemáticos básicos, como encontrar el valor mínimo y máximo, calcular el promedio y obtener los números más altos o más bajos de una matriz.
+
+## Funciones disponibles
+
+- `min(...$args): int`: Encuentra y devuelve el valor mínimo entre los parámetros ingresados.
+- `max(...$args): int`: Encuentra y devuelve el valor máximo entre los parámetros ingresados.
+- `avg(...$args): int`: Calcula y devuelve el promedio de los parámetros ingresados.
+- `highs(array $numbers, int $quantity): array`: Devuelve los números más altos de una matriz en orden descendente.
+- `lows(array $numbers, int $quantity): array`: Devuelve los números más bajos de una matriz en orden ascendente.
+
+## Uso
+
+```php
+// Obtener el valor mínimo
+$minValue = Math::min(4, 2, 9, 1);
+echo "El valor mínimo es: " . $minValue;
+
+// Obtener el valor máximo
+$maxValue = Math::max(4, 2, 9, 1);
+echo "El valor máximo es: " . $maxValue;
+
+// Calcular el promedio
+$average = Math::avg(4, 2, 9, 1);
+echo "El promedio es: " . $average;
+
+// Obtener los números más altos
+$numbers = [4, 2, 9, 1, 7, 5];
+$highestNumbers = Math::highs($numbers, 3);
+echo "Los números más altos son: " . implode(", ", $highestNumbers);
+
+// Obtener los números más bajos
+$lowestNumbers = Math::lows($numbers, 2);
+echo "Los números más bajos son: " . implode(", ", $lowestNumbers);
