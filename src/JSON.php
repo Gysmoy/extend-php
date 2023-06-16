@@ -116,8 +116,14 @@ class JSON
      */
     public static function unflatten($obj, $notation = '.')
     {
-        $result = [];
+        $flattened = [];
         foreach ($obj as $key => $value) {
+            $new_key = str_replace('][', $notation, $key);
+            $new_key = str_replace(['[', ']'], [$notation, ''], $new_key);
+            $flattened[$new_key] = $value;
+        }
+        $result = [];
+        foreach ($flattened as $key => $value) {
             $keys = explode($notation, $key);
             $cur = &$result;
             foreach ($keys as $i => $prop) {
@@ -216,35 +222,3 @@ class JSON
         return null;
     }
 }
-
-// print_r(JSON::stringify(JSON::unflatten([
-//     "squadName" => "Super hero squad",
-//     "homeTown" => "Metro City",
-//     "formed" => 2016,
-//     "secretBase" => "Super tower",
-//     "active" => true,
-//     "value" => null,
-//     "members[0].name" => "Molecule Man",
-//     "members[0].age" => 29,
-//     "members[0].secretIdentity" => "Dan Jukes",
-//     "members[0].powers[0][0]" => "Radiation resistance",
-//     "members[0].powers[0][1]" => "Turning tiny",
-//     "members[0].powers[0][2]" => "Radiation blast",
-//     "members[0].powers[1][0].power1" => "Radiation resistance",
-//     "members[0].powers[1][0].power2" => "Turning tiny",
-//     "members[0].powers[1][0].power3" => "Radiation blast",
-//     "members[1].name" => "Madame Uppercut",
-//     "members[1].age" => 39,
-//     "members[1].secretIdentity" => "Jane Wilson",
-//     "members[1].powers[0]" => "Million tonne punch",
-//     "members[1].powers[1]" => "Damage resistance",
-//     "members[1].powers[2]" => "Superhuman reflexes",
-//     "members[2].name" => "Eternal Flame",
-//     "members[2].age" => 1000000,
-//     "members[2].secretIdentity" => "Unknown",
-//     "members[2].powers[0]" => "Immortality",
-//     "members[2].powers[1]" => "Heat Immunity",
-//     "members[2].powers[2]" => "Inferno",
-//     "members[2].powers[3]" => "Teleportation",
-//     "members[2].powers[4]" => "Interdimensional travel"
-// ]), true));
