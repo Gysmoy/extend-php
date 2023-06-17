@@ -1262,7 +1262,7 @@ class File
      * de retorno es "mixto", lo que significa que puede ser cualquier
      * tipo de datos.
      */
-    public static function getContents(string $path): mixed
+    public static function get(string $path): mixed
     {
         return file_get_contents($path);
     }
