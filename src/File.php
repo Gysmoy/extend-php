@@ -1250,4 +1250,20 @@ class File
     {
         file_put_contents($path, $data);
     }
+
+    /**
+     * Esta función recupera el contenido de un archivo especificado por
+     * su ruta.
+     * 
+     * @param string path Una cadena que representa la ruta al archivo
+     * cuyo contenido se va a recuperar.
+     * 
+     * @return mixed el contenido de un archivo como una cadena. El tipo
+     * de retorno es "mixto", lo que significa que puede ser cualquier
+     * tipo de datos.
+     */
+    public static function getContents(string $path): mixed
+    {
+        return file_get_contents($path);
+    }
 }
