@@ -125,4 +125,55 @@ class Text
         }
         return $text;
     }
+
+    /**
+     * The function checks if a string contains a specific substring and returns a boolean value.
+     * 
+     * @param string string The first parameter is a string variable named `` which represents
+     * the string in which we want to search for the second parameter.
+     * @param string needle The "needle" parameter is a string that we are searching for within another
+     * string. It is the substring that we want to check if it exists within the main string.
+     * 
+     * @return bool A boolean value indicating whether the `` string is found within the
+     * `` string.
+     */
+    public static function has(string $string, string $needle): bool
+    {
+        return str_contains($string, $needle);
+    }
+
+    /**
+     * This is a PHP function that checks if a string contains any of the needles in a given list.
+     * 
+     * @param string string A string that we want to check for the presence of certain substrings.
+     * @param array needle_list An array of strings that represent the needles to search for in the
+     *  parameter.
+     * 
+     * @return bool a boolean value, either true or false.
+     */
+    public static function hasOne(string $string, array $needle_list): bool
+    {
+        foreach ($needle_list as $needle) {
+            if (str_contains($string, $needle)) return true;
+        }
+        return false;
+    }
+
+    /**
+     * The function checks if a given string contains all the substrings in a given list.
+     * 
+     * @param string string A string that we want to check if it contains all the needles in the needle
+     * list.
+     * @param array needle_list An array of strings that are being searched for in the 
+     * parameter.
+     * 
+     * @return bool A boolean value is being returned, either true or false.
+     */
+    public static function hasAll(string $string, array $needle_list): bool
+    {
+        foreach ($needle_list as $needle) {
+            if (!str_contains($string, $needle)) return false;
+        }
+        return true;
+    }
 }
