@@ -9,10 +9,13 @@ class Text
     /**
      * Verifica si un String comienza con un caracter en especifico.
      *
-     * @param string $string El String con el que se va a realizar la verificación.
-     * @param string $needle El caracter con el que se va a realizar la comparación.
+     * @param string $string El String con el que se va a realizar
+     * la verificación.
+     * @param string $needle El caracter con el que se va a realizar
+     * la comparación.
      * 
-     * @return bool Un valor booleano capaz de representar si el string comienza con el caracter especificado.
+     * @return bool Un valor booleano capaz de representar si el
+     * string comienza con el caracter especificado.
      */
     static public function startsWith($string, $needle): bool
     {
@@ -51,7 +54,8 @@ class Text
      * Separa una cadena de texto en palabras o partes según el separador.
      *
      * @param string $text La cadena a separar.
-     * @param string $separator El carácter separador para los elementos del array. (Opcional, por defecto es un espacio en blanco).
+     * @param string $separator El carácter separador para los elementos
+     * del array. (Opcional, por defecto es un espacio en blanco).
      *
      * @return array Un array con las cadenas separadas.
      */
@@ -61,16 +65,20 @@ class Text
     }
 
     /**
-     * The "keep" function filters a string to only include specified characters and removes any
-     * whitespace.
+     * La función "keep" filtra una cadena para incluir solo caracteres
+     * específicos y elimina cualquier espacio en blanco.
      * 
-     * @param string string The input string that needs to be filtered and returned.
-     * @param string characters The characters parameter is a string that contains all the characters
-     * that should be kept in the input string. All other characters will be removed.
+     * @param string string La cadena de entrada que debe filtrarse y
+     * devolverse.
+     * @param string characters El parámetro de caracteres es una cadena
+     * que contiene todos los caracteres que deben mantenerse en la cadena
+     * de entrada. Todos los demás personajes serán eliminados.
      * 
-     * @return string a string that contains only the characters specified in the ``
-     * parameter, with any non-matching characters removed. Additionally, any whitespace characters are
-     * removed and the remaining words are concatenated with a single space character between them.
+     * @return string una cadena que contiene solo los caracteres
+     * especificados en el parámetro ``, con cualquier carácter que no
+     * coincida eliminado. Además, se eliminan los caracteres de espacio
+     * en blanco y las palabras restantes se concatenan con un solo
+     * carácter de espacio entre ellas.
      */
     public static function keep(string $string, string $characters): string
     {
@@ -83,12 +91,15 @@ class Text
     }
 
     /**
-     * The function matches a regular expression pattern in a given string and returns the result along
-     * with the remaining text.
+     * La función coincide con un patrón de expresión regular en una
+     * cadena determinada y devuelve el resultado junto con el texto
+     * restante.
      * 
-     * @param string text The input string that needs to be matched against the regular expression.
-     * @param string regex The regular expression pattern to search for in the given text. It is set to
-     * '/{{(.+?)}}/' by default, which matches any text enclosed in double curly braces.
+     * @param string text La cadena de entrada que debe compararse con la
+     * expresión regular.
+     * @param string regex El patrón de expresión regular a buscar en el
+     * texto dado. Se establece en '/{{(.+?)}}/' de forma predeterminada,
+     * que coincide con cualquier texto encerrado entre llaves dobles.
      * 
      * @return An array is being returned with three elements:
      */
@@ -107,17 +118,21 @@ class Text
     }
 
     /**
-     * The function reduces a given string to a specified number of characters and adds ellipsis if the
-     * string is longer than the specified number of characters.
+     * La función reduce una cadena dada a un número específico de
+     * caracteres y agrega puntos suspensivos si la cadena es más larga
+     * que el número especificado de caracteres.
      * 
-     * @param string string A string of characters that needs to be reduced in length.
-     * @param int chars The maximum number of characters that the string should be reduced to.
+     * @param string string Una cadena de caracteres que debe reducirse
+     * en longitud.
+     * @param int chars El número máximo de caracteres al que debe
+     * reducirse la cadena.
      * 
-     * @return a string that is either the original string passed in, or a shortened version of it with
-     * an ellipsis added at the end if the original string was longer than the specified number of
-     * characters.
+     * @return string una cadena que es la cadena original pasada o una
+     * versión abreviada de la misma con puntos suspensivos agregados al
+     * final si la cadena original era más larga que el número especificado
+     * de caracteres.
      */
-    public static function reduce(string $string, int $chars)
+    public static function reduce(string $string, int $chars):string 
     {
         $text = strval($string);
         if (strlen($text) > $chars) {
@@ -127,15 +142,18 @@ class Text
     }
 
     /**
-     * The function checks if a string contains a specific substring and returns a boolean value.
+     * La función comprueba si una cadena contiene una subcadena
+     * específica y devuelve un valor booleano.
      * 
-     * @param string string The first parameter is a string variable named `` which represents
-     * the string in which we want to search for the second parameter.
-     * @param string needle The "needle" parameter is a string that we are searching for within another
-     * string. It is the substring that we want to check if it exists within the main string.
+     * @param string string El primer parámetro es una variable de cadena
+     * llamada `string` que representa la cadena en la que queremos buscar
+     * el segundo parámetro.
+     * @param string needle El parámetro "aguja" es una cadena que estamos
+     * buscando dentro de otra cadena. Es la subcadena que queremos
+     * verificar si existe dentro de la cadena principal.
      * 
-     * @return bool A boolean value indicating whether the `` string is found within the
-     * `` string.
+     * @return bool Un valor booleano que indica si la cadena `needle` se
+     * encuentra dentro de la cadena `string`.
      */
     public static function has(string $string, string $needle): bool
     {
@@ -143,13 +161,15 @@ class Text
     }
 
     /**
-     * This is a PHP function that checks if a string contains any of the needles in a given list.
+     * Esta es una función de PHP que verifica si una cadena contiene
+     * alguna de las cadenas en una lista dada.
      * 
-     * @param string string A string that we want to check for the presence of certain substrings.
-     * @param array needle_list An array of strings that represent the needles to search for in the
-     *  parameter.
+     * @param string string Una cadena en la que queremos verificar la
+     * presencia de ciertas subcadenas.
+     * @param array needle_list Una matriz de cadenas que representan las
+     * cadenas para buscar en el parámetro.
      * 
-     * @return bool a boolean value, either true or false.
+     * @return bool un valor booleano, ya sea verdadero o falso.
      */
     public static function hasOne(string $string, array $needle_list): bool
     {
@@ -160,14 +180,15 @@ class Text
     }
 
     /**
-     * The function checks if a given string contains all the substrings in a given list.
+     * La función verifica si una cadena dada contiene todas las subcadenas
+     * en una lista dada.
      * 
-     * @param string string A string that we want to check if it contains all the needles in the needle
-     * list.
-     * @param array needle_list An array of strings that are being searched for in the 
-     * parameter.
+     * @param string string Una cadena que queremos verificar si contiene
+     * todas las subcadenas en la lista de subcadenas.
+     * @param array needle_list Una matriz de cadenas que se buscan en
+     * el parámetro.
      * 
-     * @return bool A boolean value is being returned, either true or false.
+     * @return bool Se devuelve un valor booleano, ya sea verdadero o falso.
      */
     public static function hasAll(string $string, array $needle_list): bool
     {
