@@ -222,6 +222,17 @@ class JSON
         return null;
     }
 
+    /**
+     * Esta función convierte una cadena CSV en una matriz de matrices
+     * asociativas utilizando la primera fila como claves y las filas
+     * posteriores como valores.
+     * 
+     * @param string csv Una cadena que contiene datos de valores
+     * separados por comas (CSV).
+     * 
+     * @return array Una matriz de objetos creados a partir de los
+     * datos CSV.
+     */
     public static function fromCSV(string $csv): array
     {
         $csv = preg_replace('/\R/', '\n', trim($csv));
@@ -237,5 +248,32 @@ class JSON
             $array[] = JSON::unflatten($object);
         }
         return $array;
+    }
+
+    /**
+     * Esta es una función de PHP que busca a través de una matriz y
+     * devuelve el primer elemento que coincide con una función de
+     * devolución de llamada determinada.
+     * 
+     * @param array array Una matriz de valores en los que queremos buscar.
+     * @param callable callback El parámetro es una función que toma un
+     * elemento del parámetro como argumento y devuelve un valor booleano.
+     * Se utiliza para determinar si el elemento actual en el ciclo coincide
+     * con los criterios deseados.
+     * 
+     * @return mixed un tipo de datos mixto, lo que significa que puede
+     * devolver cualquier tipo de datos. En este caso, devolverá el primer
+     * elemento de la matriz que satisfaga la condición especificada en la
+     * función de devolución de llamada. Si ningún elemento cumple la
+     * condición, devolverá nulo.
+     */
+    public static function find(array $array, callable $callback): mixed
+    {
+        foreach ($array as $item) {
+            if ($callback($item)) {
+                return $item;
+            }
+        }
+        return null;
     }
 }
