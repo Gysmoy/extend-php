@@ -221,4 +221,21 @@ class JSON
         }
         return null;
     }
+
+    public static function fromCSV(string $csv): array
+    {
+        $csv = preg_replace('/\R/', '\n', trim($csv));
+        $rows = explode('\n', $csv);
+        $keys = str_getcsv($rows[0]);
+        $array = array();
+        for ($i = 1; $i < count($rows); $i++) {
+            $currentLine = str_getcsv($rows[$i]);
+            $object = array();
+            for ($j = 0; $j < count($keys); $j++) {
+                $object[$keys[$j]] = $currentLine[$j];
+            }
+            $array[] = JSON::unflatten($object);
+        }
+        return $array;
+    }
 }
