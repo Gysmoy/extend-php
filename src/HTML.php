@@ -232,19 +232,29 @@ class HTML
         }
     }
 
+    
     /**
-     * The function "toImage" returns a string containing the URI of an image.
+     * Esta función de PHP convierte el código HTML en una imagen usando
+     * HTML/CSS to Image API.
      * 
-     * @param string html The parameter "html" is a string variable that represents the HTML code of an
-     * image.
+     * @param string html Una cadena que contiene el código HTML que se
+     * convertirá en una imagen.
+     * @param string type El tipo de salida deseada, ya sea 'url',
+     * 'base64' o 'blob'.
      * 
-     * @return string the string '{uri}'.
+     * @return string una cadena que representa una URL o una imagen
+     * codificada en base64, según el valor del parámetro `type`. Si
+     * `type` es `'url'`, la función devuelve una URL que apunta a una
+     * imagen generada a partir del HTML de entrada. Si `type` es
+     * `'base64'' o `'blob'`, la función devuelve una imagen codificada
+     * en base64 o una imagen binaria.
      */
     public static function toImage(string $html, string $type = 'url'): string
     {
         $body = [
             'html' => $html,
-            'render_when_ready' => 'false'
+            'render_when_ready' => false,
+            'device_scale' => 3
         ];
         $res = new Fetch("https://htmlcsstoimage.com/demo_run", [
             'method' => 'POST',
