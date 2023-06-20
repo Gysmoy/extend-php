@@ -197,4 +197,25 @@ class Text
         }
         return true;
     }
+
+    /**
+     * Esta función comprueba si una cadena determinada es nula o
+     * está vacía.
+     * 
+     * @param string El parámetro llamado "string" es un tipo de
+     * string anulable, indicado por el "?" antes de la palabra
+     * clave "string". Esto significa que puede ser una string o
+     * un valor nulo.
+     * 
+     * @return bool un valor booleano. Si la cadena de entrada es
+     * nula o está vacía, devolverá verdadero. De lo contrario,
+     * devolverá falso.
+     */
+    public static function nullOrEmpty(?string $string): bool
+    {
+        if (!isset($string) || $string == null || trim($string) == '') {
+            return true;
+        }
+        return false;
+    }
 }
