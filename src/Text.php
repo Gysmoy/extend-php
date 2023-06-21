@@ -132,7 +132,7 @@ class Text
      * final si la cadena original era más larga que el número especificado
      * de caracteres.
      */
-    public static function reduce(string $string, int $chars):string 
+    public static function reduce(string $string, int $chars): string
     {
         $text = strval($string);
         if (strlen($text) > $chars) {
@@ -217,5 +217,23 @@ class Text
             return true;
         }
         return false;
+    }
+
+    public static function toTitleCase(string $string, bool $capitalizeSingleWords = true): string
+    {
+        $string = strtolower($string);
+        $result = preg_replace_callback('/(\b\w|\.\s\w)/', function ($matches) {
+            return strtoupper($matches[0]);
+        }, $string);
+        
+        $result = preg_replace_callback('/(\w+)/', function ($matches) use ($capitalizeSingleWords) {
+            $word = $matches[0];
+            if ($word === strtoupper($word)) {
+                return $word;
+            }
+            return ($capitalizeSingleWords || strlen($word) > 1) ? ucfirst($word) : strtolower($word);
+        }, $result);
+        
+        return trim($result);
     }
 }
