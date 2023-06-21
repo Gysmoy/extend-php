@@ -1,6 +1,6 @@
 <?php
 
-namespace SoDe\Extend;
+// namespace SoDe\Extend;
 
 class Text
 {
@@ -221,19 +221,19 @@ class Text
 
     public static function toTitleCase(string $string, bool $capitalizeSingleWords = true): string
     {
-        $string = strtolower($string);
-        $result = preg_replace_callback('/(\b\w|\.\s\w)/', function ($matches) {
-            return strtoupper($matches[0]);
+        $string = mb_strtolower($string);
+        $result = preg_replace_callback('/(\b\w|\.\s\w)/u', function ($matches) {
+            return mb_strtoupper($matches[0]);
         }, $string);
-        
-        $result = preg_replace_callback('/(\w+)/', function ($matches) use ($capitalizeSingleWords) {
+
+        $result = preg_replace_callback('/(\w+)/u', function ($matches) use ($capitalizeSingleWords) {
             $word = $matches[0];
-            if ($word === strtoupper($word)) {
+            if ($word === mb_strtoupper($word)) {
                 return $word;
             }
-            return ($capitalizeSingleWords || strlen($word) > 1) ? ucfirst($word) : strtolower($word);
+            return ($capitalizeSingleWords || mb_strlen($word) > 1) ? ucfirst($word) : mb_strtolower($word);
         }, $result);
-        
+
         return trim($result);
     }
 }
