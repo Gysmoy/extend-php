@@ -11,12 +11,13 @@ class JWTSoDe
     }
     static public function hash(): string
     {
-        return password_hash(JWTSoDe::password(), PASSWORD_DEFAULT);
+        $hash = base64_encode(JWTSoDe::password());
+        return password_hash($hash, PASSWORD_DEFAULT);
     }
 
     static public function verify(string $token): bool
     {
-        $hash = str_replace('Bearer ', '', $token);
+        $hash = base64_decode(str_replace('Bearer ', '', $token));
         return password_verify(JWTSoDe::password(), $hash);
     }
 }
