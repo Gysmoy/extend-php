@@ -11,8 +11,7 @@ class JWTSoDe
     }
     static public function hash(): string
     {
-        $hash = base64_encode(JWTSoDe::password());
-        return password_hash($hash, PASSWORD_DEFAULT);
+        return base64_encode(password_hash(JWTSoDe::password(), PASSWORD_DEFAULT));
     }
 
     static public function verify(string $token): bool
