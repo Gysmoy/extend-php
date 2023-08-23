@@ -236,4 +236,13 @@ class Text
 
         return trim($result);
     }
+
+    public static function fillObject(string $string, array $object): string
+    {
+        $flattened = JSON::flatten($object);
+        foreach ($flattened as $key => $value) {
+            $string = str_replace('{{' . $key . '}}', $value, $string);
+        }
+        return $string;
+    }
 }
