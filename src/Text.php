@@ -245,4 +245,19 @@ class Text
         }
         return $string;
     }
+
+    public static function isIn(string $string, array $array): bool
+    {
+        return in_array($string, $array);
+    }
+
+    public static function fillStart(string $string, string $fill, int $length): string
+    {
+        return str_pad($string, $length, $fill, STR_PAD_LEFT);
+    }
+
+    public static function fillEnd(string $string, string $fill, int $length): string
+    {
+        return str_pad($string, $length, $fill, STR_PAD_RIGHT);
+    }
 }

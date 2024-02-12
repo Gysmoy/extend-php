@@ -14,5 +14,8 @@
             "email": "gamboapalominocarlosmanuel@gmail.com"
         }
     ],
-    "minimum-stability": "stable"
+    "minimum-stability": "stable",
+    "require": {
+        "defuse/php-encryption": "^2.4"
+    }
 }
