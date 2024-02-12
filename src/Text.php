@@ -251,6 +251,11 @@ class Text
         return in_array($string, $array);
     }
 
+    public static function isNumber(string $string): bool
+    {
+        return is_numeric($string);
+    }
+
     public static function fillStart(string $string, string $fill, int $length): string
     {
         return str_pad($string, $length, $fill, STR_PAD_LEFT);
