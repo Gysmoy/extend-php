@@ -1266,4 +1266,25 @@ class File
     {
         return file_get_contents($path);
     }
+
+    public static function scan($path, $type = 'mixed'): array
+    {
+        $path = rtrim($path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+        $contents = scandir($path);
+        $results = [];
+        foreach ($contents as $item) {
+            if ($item === '.' || $item === '..') {
+                continue;
+            }
+            $fullPath = $path . $item;
+            if ($type === 'mixed') {
+                $results[] = $item;
+            } elseif ($type === 'folder' && is_dir($fullPath)) {
+                $results[] = $item;
+            } elseif ($type === 'file' && is_file($fullPath)) {
+                $results[] = $item;
+            }
+        }
+        return $results;
+    }
 }
