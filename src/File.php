@@ -1276,6 +1276,7 @@ class File
         $type = $params['type'] ?? 'mixed';
         $startsWith = $params['startsWith'] ?? null;
         $endsWith = $params['endsWith'] ?? null;
+        $desc = $params['desc'] ?? false;
 
         foreach ($contents as $item) {
             if ($item === '.' || $item === '..') {
@@ -1304,6 +1305,13 @@ class File
                 $results[] = $item;
             }
         }
+
+        if ($desc) {
+            rsort($results);
+        } else {
+            sort($results);
+        }
+
         return $results;
     }
 }
