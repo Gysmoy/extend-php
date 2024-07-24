@@ -1267,21 +1267,40 @@ class File
         return file_get_contents($path);
     }
 
-    public static function scan($path, $type = 'mixed'): array
+    public static function scan($path, $params = []): array
     {
         $path = rtrim($path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
         $contents = scandir($path);
         $results = [];
+
+        $type = $params['type'] ?? 'mixed';
+        $startsWith = $params['startsWith'] ?? null;
+        $endsWith = $params['endsWith'] ?? null;
+
         foreach ($contents as $item) {
             if ($item === '.' || $item === '..') {
                 continue;
             }
             $fullPath = $path . $item;
+            $addItem = false;
+
             if ($type === 'mixed') {
-                $results[] = $item;
+                $addItem = true;
             } elseif ($type === 'folder' && is_dir($fullPath)) {
-                $results[] = $item;
+                $addItem = true;
             } elseif ($type === 'file' && is_file($fullPath)) {
+                $addItem = true;
+            }
+
+            if ($addItem && $startsWith !== null && !str_starts_with($item, $startsWith)) {
+                $addItem = false;
+            }
+
+            if ($addItem && $endsWith !== null && !str_ends_with($item, $endsWith)) {
+                $addItem = false;
+            }
+
+            if ($addItem) {
                 $results[] = $item;
             }
         }
