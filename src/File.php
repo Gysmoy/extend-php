@@ -1269,49 +1269,47 @@ class File
 
     public static function scan($path, $params = []): array
     {
-        $path = rtrim($path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
-        $contents = scandir($path);
-        $results = [];
+        try {
+            $path = rtrim($path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+            $contents = scandir($path);
+            $results = [];
 
-        $type = $params['type'] ?? 'mixed';
-        $startsWith = $params['startsWith'] ?? null;
-        $endsWith = $params['endsWith'] ?? null;
-        $desc = $params['desc'] ?? false;
+            $type = $params['type'] ?? 'mixed';
+            $startsWith = $params['startsWith'] ?? null;
+            $endsWith = $params['endsWith'] ?? null;
+            $desc = $params['desc'] ?? false;
 
-        foreach ($contents as $item) {
-            if ($item === '.' || $item === '..') {
-                continue;
-            }
-            $fullPath = $path . $item;
-            $addItem = false;
-
-            if ($type === 'mixed') {
-                $addItem = true;
-            } elseif ($type === 'folder' && is_dir($fullPath)) {
-                $addItem = true;
-            } elseif ($type === 'file' && is_file($fullPath)) {
-                $addItem = true;
-            }
-
-            if ($addItem && $startsWith !== null && !str_starts_with($item, $startsWith)) {
+            foreach ($contents as $item) {
+                if ($item === '.' || $item === '..') {
+                    continue;
+                }
+                $fullPath = $path . $item;
                 $addItem = false;
+                if ($type === 'mixed') {
+                    $addItem = true;
+                } elseif ($type === 'folder' && is_dir($fullPath)) {
+                    $addItem = true;
+                } elseif ($type === 'file' && is_file($fullPath)) {
+                    $addItem = true;
+                }
+                if ($addItem && $startsWith !== null && !str_starts_with($item, $startsWith)) {
+                    $addItem = false;
+                }
+                if ($addItem && $endsWith !== null && !str_ends_with($item, $endsWith)) {
+                    $addItem = false;
+                }
+                if ($addItem) {
+                    $results[] = $item;
+                }
             }
-
-            if ($addItem && $endsWith !== null && !str_ends_with($item, $endsWith)) {
-                $addItem = false;
+            if ($desc) {
+                rsort($results);
+            } else {
+                sort($results);
             }
-
-            if ($addItem) {
-                $results[] = $item;
-            }
+            return $results;
+        } catch (\Throwable $th) {
+            return [];
         }
-
-        if ($desc) {
-            rsort($results);
-        } else {
-            sort($results);
-        }
-
-        return $results;
     }
 }
