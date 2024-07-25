@@ -8,7 +8,7 @@ class Response {
     public int $draw;
     public int $iTotalDisplayRecords;
     public int $iTotalRecords;
-    public object|array|null $data;
+    public object|array|string|int|float|bool|null $data;
 
     public function __construct() {
         $this -> status = 500;
