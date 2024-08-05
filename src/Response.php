@@ -23,7 +23,7 @@ class Response
         return json_decode($json, true);
     }
 
-    public static function simpleTryCatch(callable $callback): self
+    public static function simpleTryCatch(callable $callback, ?callable $fallback = null): self
     {
         $response = new self();
         try {
@@ -38,6 +38,7 @@ class Response
                 $response->message = 'Operación correcta';
             }
         } catch (\Throwable $th) {
+            if ($fallback) $fallback($response, $th);
             $response->status = 400;
             $response->message = $th->getMessage();
         } finally {
