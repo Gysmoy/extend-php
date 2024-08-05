@@ -265,4 +265,11 @@ class Text
     {
         return str_pad($string, $length, $fill, STR_PAD_RIGHT);
     }
+
+    public static function replaceData(string $string, array $object) {
+        foreach ($object as $key => $value) {
+            $string = str_replace('{{' . $key . '}}', $value, $string);
+        }
+        return $string;
+    }
 }
