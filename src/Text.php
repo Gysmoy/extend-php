@@ -266,10 +266,62 @@ class Text
         return str_pad($string, $length, $fill, STR_PAD_RIGHT);
     }
 
-    public static function replaceData(string $string, array $object) {
+    public static function replaceData(string $string, array $object)
+    {
         foreach ($object as $key => $value) {
             $string = str_replace('{{' . $key . '}}', $value, $string);
         }
         return $string;
+    }
+
+    /**
+     * La función `html2wa` convierte texto con formato HTML a un formato de texto simplificado adecuado para una
+     * plataforma de mensajería como WhatsApp.
+     * 
+     * @param string string La función `html2wa` que has proporcionado es una función PHP que convierte
+     * texto con formato HTML a un formato de texto simplificado adecuado para mensajes de WhatsApp. Realiza
+     * varios reemplazos y transformaciones en la cadena de entrada para lograr esta conversión.
+     * 
+     * @return string La función `html2wa` toma una cadena HTML como entrada y la convierte a un
+     * formato compatible con WhatsApp reemplazando ciertas etiquetas HTML con su sintaxis de markdown equivalente.
+     * Luego, la función elimina cualquier etiqueta HTML restante y devuelve la cadena procesada.
+     */
+    public static function html2wa(string $string): string
+    {
+        $string = str_replace('{{session.sign}}', '', $string);
+
+        $string = preg_replace_callback('/<p>(.*?)<\/p>/', function ($matches) {
+            return "\n" . trim($matches[1]);
+        }, $string);
+        $string = preg_replace_callback('/<strong>(.*?)<\/strong>/', function ($matches) {
+            return '*' . trim($matches[1]) . '*';
+        }, $string);
+        $string = preg_replace_callback('/<b>(.*?)<\/b>/', function ($matches) {
+            return '*' . trim($matches[1]) . '*';
+        }, $string);
+        $string = preg_replace_callback('/<i>(.*?)<\/i>/', function ($matches) {
+            return '_' . trim($matches[1]) . '_';
+        }, $string);
+        $string = preg_replace_callback('/<em>(.*?)<\/em>/', function ($matches) {
+            return '_' . trim($matches[1]) . '_';
+        }, $string);
+        $string = preg_replace_callback('/<s>(.*?)<\/s>/', function ($matches) {
+            return '~' . trim($matches[1]) . '~';
+        }, $string);
+        $string = preg_replace_callback('/<code>(.*?)<\/code>/', function ($matches) {
+            return '```' . trim($matches[1]) . '```';
+        }, $string);
+        $string = preg_replace_callback('/<pre>(.*?)<\/pre>/', function ($matches) {
+            return '```' . trim($matches[1]) . '```';
+        }, $string);
+        $string = preg_replace_callback('/<blockquote>(.*?)<\/blockquote>/', function ($matches) {
+            return "\n> " . trim($matches[1]);
+        }, $string);
+        $string = str_replace('<br>', "\n", $string);
+        $string = str_replace('</br>', "\n", $string);
+
+        $string = preg_replace('/<[^>]*>?/', '', $string);
+
+        return trim($string);
     }
 }
