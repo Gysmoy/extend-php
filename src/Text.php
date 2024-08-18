@@ -266,9 +266,15 @@ class Text
         return str_pad($string, $length, $fill, STR_PAD_RIGHT);
     }
 
-    public static function replaceData(string $string, array $object)
+    public static function replaceData(string $string, array $object, ?array $rules = [])
     {
         foreach ($object as $key => $value) {
+            if (isset($rules[$key])) {
+                try {
+                    $value = $rules[$key]($value);
+                } catch (\Throwable $th) {
+                }
+            }
             $string = str_replace('{{' . $key . '}}', $value, $string);
         }
         return $string;
