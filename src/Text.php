@@ -346,4 +346,22 @@ class Text
         }
         return null;
     }
+
+    public static function slug(string $string):string {
+        $slug = strtolower($string);
+
+        // Reemplazar los caracteres especiales y acentuados por sus equivalentes sin acento
+        $slug = iconv('UTF-8', 'ASCII//TRANSLIT', $slug);
+
+        // Reemplazar cualquier cosa que no sea una letra, número o guión por un espacio
+        $slug = preg_replace('/[^a-z0-9-]+/', '-', $slug);
+
+        // Eliminar guiones repetidos
+        $slug = preg_replace('/-+/', '-', $slug);
+
+        // Eliminar guiones al principio y al final
+        $slug = trim($slug, '-');
+
+        return $slug;
+    }
 }
