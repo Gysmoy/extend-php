@@ -366,7 +366,7 @@ class Text
         return $slug;
     }
 
-    function getEmailProvider($correo)
+    public static function getEmailProvider($correo)
     {
         // Convertir el correo a minúsculas para evitar problemas de comparación
         $correo = strtolower($correo);
