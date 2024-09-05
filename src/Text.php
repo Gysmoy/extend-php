@@ -347,7 +347,8 @@ class Text
         return null;
     }
 
-    public static function slug(string $string):string {
+    public static function slug(string $string): string
+    {
         $slug = strtolower($string);
 
         // Reemplazar los caracteres especiales y acentuados por sus equivalentes sin acento
@@ -363,5 +364,49 @@ class Text
         $slug = trim($slug, '-');
 
         return $slug;
+    }
+
+    function getEmailProvider($correo)
+    {
+        // Convertir el correo a minúsculas para evitar problemas de comparación
+        $correo = strtolower($correo);
+
+        // Verificar si el correo tiene el formato correcto (si contiene un '@')
+        if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+            throw new \Exception("Correo no válido");
+        }
+
+        // Extraer el dominio del correo
+        $partes = explode('@', $correo);
+        $dominio = end($partes);
+
+        // Revisar si es de un proveedor específico
+        if (strpos($dominio, 'gmail.com') !== false) {
+            return "Gmail";
+        } elseif (strpos($dominio, 'outlook.com') !== false) {
+            return "Outlook";
+        } elseif (strpos($dominio, 'hotmail.com') !== false) {
+            return "Hotmail";
+        } elseif (strpos($dominio, 'yahoo.com') !== false) {
+            return "Yahoo";
+        } elseif (strpos($dominio, 'aol.com') !== false) {
+            return "AOL";
+        } elseif (strpos($dominio, 'icloud.com') !== false) {
+            return "iCloud";
+        } elseif (strpos($dominio, 'zoho.com') !== false) {
+            return "Zoho Mail";
+        } elseif (strpos($dominio, 'protonmail.com') !== false) {
+            return "ProtonMail";
+        } elseif (strpos($dominio, 'gmx.com') !== false) {
+            return "GMX Mail";
+        } elseif (strpos($dominio, 'yandex.com') !== false) {
+            return "Yandex";
+        }
+        // Verificar si es un correo institucional con dominio .edu
+        elseif (strpos($dominio, '.edu') !== false) {
+            return "Institucional";
+        } else {
+            return "Otro";
+        }
     }
 }
