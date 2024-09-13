@@ -13,10 +13,10 @@ class Trace
      * @return string Regresa un identificador único foramdo por la
      * fecha y hora actual.
      */
-    static public function getId(): string
+    static public function getId($withColita = true): string
     {
         date_default_timezone_set('America/Lima');
-        return date('YmdHisu');
+        return $withColita ? date('YmdHisu') : date('YmdHis');
     }
 
     /**
@@ -52,7 +52,7 @@ class Trace
                 break;
         }
     }
-    
+
     /**
      * La función `formato` es una función pública estática que toma
      * un parámetro de cadena `` que representa el formato de fecha
@@ -64,7 +64,7 @@ class Trace
     {
         return date($format);
     }
-    
+
     /**
      * La función `mes` es una función pública estática que toma un
      * parámetro de cadena opcional `` que representa el índice del
