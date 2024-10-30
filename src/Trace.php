@@ -16,7 +16,11 @@ class Trace
     static public function getId($withColita = true): string
     {
         date_default_timezone_set('America/Lima');
-        return $withColita ? date('YmdHisu') : date('YmdHis');
+        $microtime = microtime(true);
+        $fechaActual = date('YmdHis');
+        $microsegundos = sprintf("%06d", ($microtime - floor($microtime)) * 1000000);
+        $orderId = $fechaActual . $microsegundos;
+        return $withColita ? $orderId : date('YmdHis');
     }
 
     /**
