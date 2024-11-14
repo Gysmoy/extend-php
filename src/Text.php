@@ -409,4 +409,16 @@ class Text
             return "Otro";
         }
     }
+
+    public static function camelToSnakeCase(string $input): string
+    {
+        return strtolower(preg_replace('/([a-z])([A-Z])/', '$1_$2', $input));
+    }
+
+    public static function snakeToCamelCase(string $input): string
+    {
+        $input = str_replace('_', ' ', strtolower($input));
+        $input = str_replace(' ', '', ucwords($input));
+        return lcfirst($input);
+    }
 }
