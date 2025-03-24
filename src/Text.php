@@ -336,7 +336,7 @@ class Text
 
         // Convertir blockquote
         $string = preg_replace_callback('/<blockquote[^>]*>(.*?)<\/blockquote>/', function ($matches) {
-            return "\n> " . trim($matches[1]);
+            return "> " . trim($matches[1]) . "\n";
         }, $string);
 
         // Convertir saltos de línea <br> a \n
@@ -346,6 +346,104 @@ class Text
         $string = strip_tags($string);
 
         return trim($string);
+    }
+
+        /**
+     * La función `wa2html` convierte texto con formato WhatsApp a formato HTML.
+     * 
+     * @param string string El texto con formato WhatsApp que se convertirá a HTML
+     * 
+     * @return string El texto convertido a formato HTML
+     */
+    public static function wa2html(string $string): string
+    {
+        $lines = explode("\n", $string);
+        $html = '';
+        $inList = false;
+        $listType = '';
+        $listContent = '';
+        
+        foreach ($lines as $line) {
+            $line = trim($line);
+            if (empty($line)) {
+                if ($inList) {
+                    $html .= $listType === 'ul' ? "</ul>\n" : "</ol>\n";
+                    $inList = false;
+                }
+                continue;
+            }
+
+            // Convertir listas no ordenadas (- item)
+            if (preg_match('/^-\s+(.+)$/', $line, $matches)) {
+                if (!$inList || $listType !== 'ul') {
+                    if ($inList) {
+                        $html .= $listType === 'ul' ? "</ul>\n" : "</ol>\n";
+                    }
+                    $html .= "<ul>\n";
+                    $inList = true;
+                    $listType = 'ul';
+                }
+                $html .= "<li>" . self::convertInlineFormats($matches[1]) . "</li>\n";
+                continue;
+            }
+
+            // Convertir listas ordenadas (1. item)
+            if (preg_match('/^\d+\.\s+(.+)$/', $line, $matches)) {
+                if (!$inList || $listType !== 'ol') {
+                    if ($inList) {
+                        $html .= $listType === 'ul' ? "</ul>\n" : "</ol>\n";
+                    }
+                    $html .= "<ol>\n";
+                    $inList = true;
+                    $listType = 'ol';
+                }
+                $html .= "<li>" . self::convertInlineFormats($matches[1]) . "</li>\n";
+                continue;
+            }
+
+            // Convertir blockquotes (> texto)
+            if (preg_match('/^>\s+(.+)$/', $line, $matches)) {
+                if ($inList) {
+                    $html .= $listType === 'ul' ? "</ul>\n" : "</ol>\n";
+                    $inList = false;
+                }
+                $html .= "<blockquote>" . self::convertInlineFormats($matches[1]) . "</blockquote>\n";
+                continue;
+            }
+
+            // Texto normal
+            if ($inList) {
+                $html .= $listType === 'ul' ? "</ul>\n" : "</ol>\n";
+                $inList = false;
+            }
+            $html .= "<p>" . self::convertInlineFormats($line) . "</p>\n";
+        }
+
+        if ($inList) {
+            $html .= $listType === 'ul' ? "</ul>\n" : "</ol>\n";
+        }
+
+        return trim($html);
+    }
+
+    /**
+     * Función auxiliar para convertir formatos inline de WhatsApp a HTML
+     */
+    private static function convertInlineFormats(string $text): string
+    {
+        // Convertir negrita (*texto*)
+        $text = preg_replace('/\*(.*?)\*/', '<strong>$1</strong>', $text);
+        
+        // Convertir cursiva (_texto_)
+        $text = preg_replace('/_(.*?)_/', '<em>$1</em>', $text);
+        
+        // Convertir tachado (~texto~)
+        $text = preg_replace('/~(.*?)~/', '<s>$1</s>', $text);
+        
+        // Convertir código (```texto```)
+        $text = preg_replace('/```(.*?)```/', '<code>$1</code>', $text);
+        
+        return $text;
     }
 
     public static function getYTVideoId($url)
