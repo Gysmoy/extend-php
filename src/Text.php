@@ -311,7 +311,6 @@ class Text
 
         // Convertir párrafos
         $string = preg_replace_callback('/<p[^>]*>(.*?)<\/p>/s', function ($matches) {
-            dump($matches);
             return trim($matches[1]) . "\n";
         }, $string);
 
