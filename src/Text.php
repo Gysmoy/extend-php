@@ -296,37 +296,55 @@ class Text
     {
         $string = str_replace('{{session.sign}}', '', $string);
 
-        $string = preg_replace_callback('/<p>(.*?)<\/p>/', function ($matches) {
-            return "\n" . trim($matches[1]);
+        // Convertir listas desordenadas <ul> a formato de WhatsApp
+        $string = preg_replace_callback('/<ul[^>]*>(.*?)<\/ul>/s', function ($matches) {
+            return preg_replace('/<li[^>]*>(.*?)<\/li>/', "- $1\n", $matches[1]);
         }, $string);
-        $string = preg_replace_callback('/<strong>(.*?)<\/strong>/', function ($matches) {
-            return '*' . trim($matches[1]) . '*';
+
+        // Convertir listas ordenadas <ol> a formato de WhatsApp
+        $string = preg_replace_callback('/<ol[^>]*>(.*?)<\/ol>/s', function ($matches) {
+            $counter = 1;
+            return preg_replace_callback('/<li[^>]*>(.*?)<\/li>/', function ($liMatches) use (&$counter) {
+                return ($counter++) . ". " . trim($liMatches[1])  . "\n";
+            }, $matches[1]);
         }, $string);
-        $string = preg_replace_callback('/<b>(.*?)<\/b>/', function ($matches) {
-            return '*' . trim($matches[1]) . '*';
+
+        // Convertir párrafos
+        $string = preg_replace_callback('/<p[^>]*>(.*?)<\/p>/s', function ($matches) {
+            dump($matches);
+            return trim($matches[1]) . "\n";
         }, $string);
-        $string = preg_replace_callback('/<i>(.*?)<\/i>/', function ($matches) {
-            return '_' . trim($matches[1]) . '_';
+
+        // Convertir negrita <strong> y <b> a *
+        $string = preg_replace_callback('/<(strong|b)[^>]*>(.*?)<\/\1>/', function ($matches) {
+            return '*' . trim($matches[2]) . '*';
         }, $string);
-        $string = preg_replace_callback('/<em>(.*?)<\/em>/', function ($matches) {
-            return '_' . trim($matches[1]) . '_';
+
+        // Convertir cursiva <i> y <em> a _
+        $string = preg_replace_callback('/<(i|em)[^>]*>(.*?)<\/\1>/', function ($matches) {
+            return '_' . trim($matches[2]) . '_';
         }, $string);
-        $string = preg_replace_callback('/<s>(.*?)<\/s>/', function ($matches) {
+
+        // Convertir tachado <s> a ~
+        $string = preg_replace_callback('/<s[^>]*>(.*?)<\/s>/', function ($matches) {
             return '~' . trim($matches[1]) . '~';
         }, $string);
-        $string = preg_replace_callback('/<code>(.*?)<\/code>/', function ($matches) {
-            return '```' . trim($matches[1]) . '```';
+
+        // Convertir código <code> y <pre> a ```
+        $string = preg_replace_callback('/<(code|pre)[^>]*>(.*?)<\/\1>/s', function ($matches) {
+            return '```' . trim($matches[2]) . '```';
         }, $string);
-        $string = preg_replace_callback('/<pre>(.*?)<\/pre>/', function ($matches) {
-            return '```' . trim($matches[1]) . '```';
-        }, $string);
-        $string = preg_replace_callback('/<blockquote>(.*?)<\/blockquote>/', function ($matches) {
+
+        // Convertir blockquote
+        $string = preg_replace_callback('/<blockquote[^>]*>(.*?)<\/blockquote>/', function ($matches) {
             return "\n> " . trim($matches[1]);
         }, $string);
-        $string = str_replace('<br>', "\n", $string);
-        $string = str_replace('</br>', "\n", $string);
 
-        $string = preg_replace('/<[^>]*>?/', '', $string);
+        // Convertir saltos de línea <br> a \n
+        $string = str_replace(['<br>', '</br>'], "\n", $string);
+
+        // Eliminar etiquetas HTML restantes
+        $string = strip_tags($string);
 
         return trim($string);
     }
