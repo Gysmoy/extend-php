@@ -296,6 +296,8 @@ class Text
     {
         $string = str_replace('{{session.sign}}', '', $string);
 
+        $string = str_replace('<p><br></p>', "<br>", $string);
+
         // Convertir listas desordenadas <ul> a formato de WhatsApp
         $string = preg_replace_callback('/<ul[^>]*>(.*?)<\/ul>/s', function ($matches) {
             return preg_replace('/<li[^>]*>(.*?)<\/li>/', "- $1\n", $matches[1]);
